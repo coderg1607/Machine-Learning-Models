@@ -54,3 +54,44 @@ Y_pred = regressor.predict(X_test)
 np.set_printoptions(precision=2)
 print("real value" + " predicted values")
 print(np.concatenate((Y_pred.reshape(len(Y_pred),1), Y_test.reshape(len(Y_test),1)),1))
+
+#---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#optional code-building backward elimination
+#import statsmodels.api as sm
+
+#here we will first add b0(constant)
+#X = np.append(arr = np.ones((50, 1)).astype(int), values = X, axis = 1)
+
+#step1:intialize x_opt with all the independent variables
+#X_opt = X[:, [0, 1, 2, 3, 4, 5]]
+#X_opt = X_opt.astype(np.float64)
+
+#fit the all model with all possible prediction
+#making obj of OLS class=ordinary least sqaure
+#regressor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
+
+#here summary function return the feture with highest P-value and other stuff:we will exclude the feture which has lower P-value
+#regressor_OLS.summary()
+
+#repeat1-removed 2(p value:0.990)
+#X_opt = X[:, [0, 1, 3, 4, 5]]
+#X_opt = X_opt.astype(np.float64)
+#regressor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
+#regressor_OLS.summary()
+
+#repeat2:remove 1(p value:0.950)
+#X_opt = X[:, [0, 3, 4, 5]]
+#X_opt = X_opt.astype(np.float64)
+#regressor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
+#regressor_OLS.summary()
+
+#remove4:
+#X_opt = X[:, [0, 3, 5]]
+#X_opt = X_opt.astype(np.float64)
+#regressor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
+#regressor_OLS.summary()
+
+#final:feture with p value nearly 0
+#X_opt = X[:, [0, 3]]
+#X_opt = X_opt.astype(np.float64)regressor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
+#regressor_OLS.summary()
